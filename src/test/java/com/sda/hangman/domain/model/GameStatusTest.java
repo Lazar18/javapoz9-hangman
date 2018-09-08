@@ -8,8 +8,47 @@ import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@RunWith(Enclosed.class)
+//@RunWith(Enclosed.class)
 public class GameStatusTest {
+
+    @Test
+    public void isFinishedShouldReturnTrueWhenFailureAttemptsEqualsMaxAttempts() {
+        //given
+        GameStatus gameStatus = new GameStatus("mmm", "Anna", 1);
+
+        //when
+        gameStatus.setFailedAttempts(1);
+
+        //then
+        Assert.assertFalse(gameStatus.IsGameFinished());
+    }
+
+    @Test
+    public void isFinishedShouldReturnFalseWhenMaxAttemptsIsBiggerThanFailureAttempts() {
+        //given
+        GameStatus gameStatus = new GameStatus("mmm", "Anna", 3);
+
+        //when
+        gameStatus.setFailedAttempts(1);
+
+        //then
+        Assert.assertFalse(gameStatus.IsGameFinished());
+
+    }
+
+    @Test
+    public void isFinishedShouldReturnTrueWhenAllLettersAreGuessed() {
+        //given
+        GameStatus gameStatus = new GameStatus("mmm", "Anna", 2);
+
+        //when
+        gameStatus.setPhraseState("Anna".chars().mapToObj(e -> e).toArray(Character[]::new));
+
+        //then
+        Assert.assertTrue(gameStatus.IsGameFinished());
+
+    }
+
 
     public static class GameStatusHelperTest {
 

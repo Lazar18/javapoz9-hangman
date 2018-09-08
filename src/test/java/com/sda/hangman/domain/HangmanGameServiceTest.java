@@ -63,7 +63,7 @@ public class HangmanGameServiceTest {
     @Test
     public void processNextLetter_should_update_characterState_when_there_is_letter_in_phrase() {
         //given
-        GameStatus gameStatus = new GameStatus("ggg", "Anna");
+        GameStatus gameStatus = new GameStatus("ggg", "Anna",0);
         Character[] expected = {'A', null, null, 'a'};
 
         //when
@@ -76,7 +76,7 @@ public class HangmanGameServiceTest {
     @Test
     public void processNextLetter_should_not_update_characterState_when_there_is_no_letter_in_phrase() {
         //given
-        GameStatus gameStatus = new GameStatus("ggg", "Anna");
+        GameStatus gameStatus = new GameStatus("ggg", "Anna",0);
         Character[] expected = {null, null, null, null};
 
         //when
@@ -90,7 +90,7 @@ public class HangmanGameServiceTest {
     @Test
     public void processNextLetter_should_update_successAttempts_when_there_is_letter_in_phrase() {
         //given
-        GameStatus gameStatus = new GameStatus("ggg", "Anna");
+        GameStatus gameStatus = new GameStatus("ggg", "Anna",0);
         Character[] expected = {'A', null, null, 'a'};
 
         //when
@@ -103,7 +103,7 @@ public class HangmanGameServiceTest {
     @Test
     public void processNextLetter_should_update_failureAttempts_when_there_is_no_letter_in_phrase() {
         //given
-        GameStatus gameStatus = new GameStatus("ggg", "Anna");
+        GameStatus gameStatus = new GameStatus("ggg", "Anna",0);
 
         //when
         hangmanGameService.processNextLetter('z', gameStatus);
@@ -115,7 +115,7 @@ public class HangmanGameServiceTest {
     @Test
     public void processNextLetter_should_update_history_for_new_letter() {
         //given
-        GameStatus gameStatus = new GameStatus("ggg", "Anna");
+        GameStatus gameStatus = new GameStatus("ggg", "Anna",0);
 
         //when
         hangmanGameService.processNextLetter('a', gameStatus);

@@ -18,8 +18,8 @@ public class HangmanGameService {
         return results;
     }
 
-    public GameStatus createGameStatus(String name, String phrase) {
-        return new GameStatus(name, phrase);
+    public GameStatus createGameStatus(String name, String phrase, Integer maxAttempts) {
+        return new GameStatus(name, phrase, maxAttempts);
     }
 
     public void processNextLetter(char letter, GameStatus gameStatus) {

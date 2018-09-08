@@ -44,7 +44,7 @@ public class Application {
         String phrase = phraseRepository.getPhrase();
         GameStatus gameStatus = hangmanGameService.createGameStatus(name, phrase);
 
-        while (true){
+        while (!gameStatus.IsGameFinished()){
             System.out.println("FRAZA, pozostało n prób");
             System.out.println("Podaj kolejną literę");
             char letter = scanner.nextLine().charAt(0);
