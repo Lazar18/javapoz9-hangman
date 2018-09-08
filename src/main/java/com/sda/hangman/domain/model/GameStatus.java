@@ -47,16 +47,52 @@ public class GameStatus {
         history.add(letter);
     }
 
-    public boolean IsGameFinished() {
-        if (failedAttempts >= maxAttempts){
-            return  true;
+    public boolean isGameFinished() {
+        if (failedAttempts >= maxAttempts) {
+            return true;
         }
         for (Character character : phraseState) {
             if (character == null) {
-                return  false;
+                return false;
             }
         }
         return true;
+    }
+
+    public int getTotalAttempts(){
+        return successAttempts + failedAttempts;
+    }
+
+    public FinishedGameStatus getFinishedGameStatus() {
+        if (!isGameFinished()) {
+            return FinishedGameStatus.RUNNING;
+        }
+        if (maxAttempts <= failedAttempts) {
+            return FinishedGameStatus.LOSE;
+
+        }
+        return FinishedGameStatus.WON;
+    }
+
+    public String getCurrentStatePhraseWithLeftAttempts() {
+        return phraseStateAsString() + " " + leftAttemptsAsString();
+    }
+
+    private String leftAttemptsAsString() {
+        int leftAttempts = maxAttempts - getFailedAttempts();
+        return "(" + leftAttempts + ")";
+    }
+
+    private String phraseStateAsString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Character c : phraseState) {
+            if (c == null) {
+                stringBuilder.append('_');
+            } else {
+                stringBuilder.append(c);
+            }
+        }
+        return stringBuilder.toString();
     }
 
     public String getName() {

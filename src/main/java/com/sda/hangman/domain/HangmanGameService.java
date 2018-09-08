@@ -22,6 +22,10 @@ public class HangmanGameService {
         return new GameStatus(name, phrase, maxAttempts);
     }
 
+    public GameStatus createGameStatus(String name, String phrase) {
+        return new GameStatus(name, phrase);
+    }
+
     public void processNextLetter(char letter, GameStatus gameStatus) {
         String phrase = gameStatus.getPhrase();
         boolean letterAlreadyUsed = gameStatus.historyContains(letter);

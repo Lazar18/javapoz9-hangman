@@ -3,8 +3,6 @@ package com.sda.hangman.domain.model;
 import com.sda.hangman.domain.model.GameStatus.GameStatusHelper;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -20,7 +18,7 @@ public class GameStatusTest {
         gameStatus.setFailedAttempts(1);
 
         //then
-        Assert.assertFalse(gameStatus.IsGameFinished());
+        Assert.assertFalse(gameStatus.isGameFinished());
     }
 
     @Test
@@ -32,7 +30,7 @@ public class GameStatusTest {
         gameStatus.setFailedAttempts(1);
 
         //then
-        Assert.assertFalse(gameStatus.IsGameFinished());
+        Assert.assertFalse(gameStatus.isGameFinished());
 
     }
 
@@ -42,10 +40,23 @@ public class GameStatusTest {
         GameStatus gameStatus = new GameStatus("mmm", "Anna", 2);
 
         //when
-        gameStatus.setPhraseState("Anna".chars().mapToObj(e -> e).toArray(Character[]::new));
+        gameStatus.setPhraseState("Anna".chars().mapToObj(e -> (char) e).toArray(Character[]::new));
 
         //then
-        Assert.assertTrue(gameStatus.IsGameFinished());
+        Assert.assertTrue(gameStatus.isGameFinished());
+
+    }
+
+    @Test
+    public void getCurrentStatePhraseWithLeftAttemptsShouldReturnTextWithUnderscoresForEmptyPhraseState() {
+        //given
+        GameStatus gameStatus = new GameStatus("mmm", "Anna", 5);
+
+        //when
+        String state = gameStatus.getCurrentStatePhraseWithLeftAttempts();
+
+        //then
+        Assert.assertEquals("____ (5)", state);
 
     }
 

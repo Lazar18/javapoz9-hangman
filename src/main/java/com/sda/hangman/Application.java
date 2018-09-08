@@ -23,10 +23,11 @@ public class Application {
             System.out.println("2. Wyniki");
             System.out.println("Inne. Koniec");
             int decision = scanner.nextInt();
+            scanner.nextLine();
 
             switch (decision) {
                 case 1:
-                    System.out.println("Logika do Start");
+                    startGame();
                     break;
                 case 2:
                     System.out.println("Logika do wyników");
@@ -44,11 +45,23 @@ public class Application {
         String phrase = phraseRepository.getPhrase();
         GameStatus gameStatus = hangmanGameService.createGameStatus(name, phrase);
 
-        while (!gameStatus.IsGameFinished()){
-            System.out.println("FRAZA, pozostało n prób");
-            System.out.println("Podaj kolejną literę");
+        do {
+            System.out.println(gameStatus.getCurrentStatePhraseWithLeftAttempts());
+            System.out.println("Podaj kolejną literę:");
             char letter = scanner.nextLine().charAt(0);
             hangmanGameService.processNextLetter(letter, gameStatus);
+        }
+        while (!gameStatus.isGameFinished());
+
+        switch (gameStatus.getFinishedGameStatus()) {
+            case WON:
+                System.out.println("Gratulacje " + name + ". Wygrałeś w " + gameStatus.getTotalAttempts() + " krokach");
+                break;
+            case LOSE:
+                System.out.println(name + "... Przegrałeś!");
+                break;
+            case RUNNING:
+                System.out.println("Gra się toczy...");
         }
     }
 }
